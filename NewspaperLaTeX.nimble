@@ -5,7 +5,7 @@ author        = "777shuang"
 description   = "A new awesome nimble package"
 license       = "Proprietary"
 srcDir        = "src"
-bin           = @["NewspaperLaTeX"]
+bin           = @["main"]
 
 
 # Dependencies
