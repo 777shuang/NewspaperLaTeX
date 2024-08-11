@@ -1,0 +1,13 @@
+\documentclass{jlreq}
+
+\usepackage[absolute]{textpos}
+\setlength{\TPHorizModule}{1mm}
+\setlength{\TPVertModule}{1mm}
+
+\begin{document}
+	{% for textbox in textboxes %}
+		\begin{textblock}{ {{textbox.w}} }( {{textbox.x}}, {{textbox.y}} )
+			{{textbox.text}}
+		\end{textblock}
+	{% endfor %}
+\end{document}
