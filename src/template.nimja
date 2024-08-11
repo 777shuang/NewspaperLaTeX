@@ -5,6 +5,8 @@
 \setlength{\TPVertModule}{1mm}
 
 \begin{document}
+	\pagestyle{empty}
+
 	{% for textbox in textboxes %}
 		\begin{textblock}{ {{textbox.w}} }( {{textbox.x}}, {{textbox.y}} )
 			{{textbox.text}}
