@@ -5,16 +5,18 @@ import zippy/ziparchives
 import nimja/parser
 import types, utils
 
-proc render(textboxes: seq[TextBox]): string =
+proc render(marginleft, margintop:string, textboxes: seq[TextBox]): string =
   compileTemplateFile(getScriptDir() / "template.nimja")
 
 let reader = openZipArchive("test.docx")
 let xmlnode = parseXml(reader.extractFile("word/document.xml"))
+writeFile("document.xml", $xmlnode)
 reader.close()
 
 var textboxes: seq[TextBox] = @[]
 
-for paragraph in xmlnode.child("w:body"):
+let body = xmlnode.child("w:body")
+for paragraph in body:
   for (i, run) in enumerate(paragraph):
     let drawing = run.child("w:drawing")
     if drawing != nil:
@@ -34,4 +36,8 @@ for paragraph in xmlnode.child("w:body"):
         textbox.text = "みかん"
         textboxes.add(textbox)
 
-echo render(textboxes)
+let pgMar = body.child("w:sectPr").child("w:pgMar")
+let marginleft = pgMar.attr("w:right")
+let margintop = pgMar.attr("w:header")
+
+echo render(marginleft, margintop, textboxes)

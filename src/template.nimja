@@ -3,6 +3,7 @@
 \usepackage[absolute]{textpos}
 \setlength{\TPHorizModule}{1mm}
 \setlength{\TPVertModule}{1mm}
+\textblockorigin{ {{marginleft}} }{ {{margintop}} }
 
 \begin{document}
 	\pagestyle{empty}
