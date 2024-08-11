@@ -38,6 +38,6 @@ for paragraph in body:
 
 let pgMar = body.child("w:sectPr").child("w:pgMar")
 let marginleft = pgMar.attr("w:right")
-let margintop = pgMar.attr("w:header")
+let margintop = pgMar.attr("w:top")
 
 echo render(marginleft, margintop, textboxes)
