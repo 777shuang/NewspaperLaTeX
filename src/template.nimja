@@ -1,5 +1,17 @@
 \documentclass{jlreq}
 
+\usepackage{lltjext}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins}
+\newtcolorbox{lineframe}[2]{
+	colback=white,
+	coltext=black,
+	enhanced,
+	frame code={
+		\draw[#1,line width=#2] (interior.north east) rectangle (interior.south west);
+	}
+}
+
 \usepackage[absolute]{textpos}
 \setlength{\TPHorizModule}{1mm}
 \setlength{\TPVertModule}{1mm}
@@ -10,7 +22,9 @@
 
 	{% for textbox in textboxes %}
 		\begin{textblock}{ {{textbox.w}} }( {{textbox.x}}, {{textbox.y}} )
-			{{textbox.text}}
+			\begin{minipage} {% if textbox.vert == Vert.eaVert %}<t>{% endif %} { {{textbox.h}}mm }
+				{{textbox.text}}
+			\end{minipage}
 		\end{textblock}
 	{% endfor %}
 \end{document}
