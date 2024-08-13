@@ -3,9 +3,9 @@ import std/enumerate
 import std/[xmltree, xmlparser]
 import zippy/ziparchives
 import nimja/parser
-import types, reader
+import types, reader, global, utils
 
-proc render(marginleft, margintop:string, rectangles: seq[Rectangle], texts: seq[Text]): string =
+proc render(rectangles: seq[Rectangle], texts: seq[Text]): string =
   compileTemplateFile(getScriptDir() / "template.nimja")
 
 let zip = openZipArchive("test.docx")
@@ -23,8 +23,14 @@ for paragraph in body:
     if drawing != nil:
       textbox(drawing, rectangles, texts)
 
-let pgMar = body.child("w:sectPr").child("w:pgMar")
-let marginleft = pgMar.attr("w:right")
-let margintop = pgMar.attr("w:top")
+let sectPr = body.child("w:sectPr")
+let pgSz = sectPr.child("w:pgSz")
+paperWidth = pt2emu(pgSz.attr("w:w"))
+paperHeight = pt2emu(pgSz.attr("w:h"))
+let pgMar = sectPr.child("w:pgMar")
+leftMargin = pt2emu(pgMar.attr("w:left"))
+rightMargin = pt2emu(pgMar.attr("w:right"))
+topMargin = pt2emu(pgMar.attr("w:top"))
+bottomMargin = pt2emu(pgMar.attr("w:bottom"))
 
-echo render(marginleft, margintop, rectangles, texts)
+echo render(rectangles, texts)

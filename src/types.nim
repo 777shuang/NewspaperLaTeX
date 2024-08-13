@@ -1,11 +1,11 @@
 type Object* = object of RootObj
-    x*: float # x[pt]
-    y*: float # y[pt]
-    w*: float # width[pt]
-    h*: float # height[pt]
+    x*: int # x[EMU]
+    y*: int # y[EMU]
+    w*: int # width[EMU]
+    h*: int # height[EMU]
 
 type Rectangle* = object of Object
-    t*: float # thickness[pt]
+    t*: int # thickness[EMU]
 
 type
     Run* = object

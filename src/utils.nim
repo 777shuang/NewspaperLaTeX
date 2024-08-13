@@ -1,4 +1,7 @@
 import std/strutils
 
-proc emu2pt*(emu: string): float =
-  return emu.parseInt / 12700
+proc emu2pt*(emu: int): string =
+  return $float(emu / 12700) & "pt"
+
+proc pt2emu*(pt: string): int =
+  return int(pt.replace("pt").parseFloat * 12700)
