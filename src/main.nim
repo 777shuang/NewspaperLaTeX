@@ -34,4 +34,4 @@ rightMargin = pt2emu(pgMar.attr("w:right"))
 topMargin = pt2emu(pgMar.attr("w:top"))
 bottomMargin = pt2emu(pgMar.attr("w:bottom"))
 
-echo render(rectangles, texts)
+writeFile("test.tex", render(rectangles, texts))
