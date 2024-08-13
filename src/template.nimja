@@ -34,11 +34,12 @@
 	{% for text in texts %}
 		\begin{textblock*}{ {{text.w}}mm }( {{text.x}}mm, {{text.y}}mm )
 			\noindent\begin{minipage} {% if text.vert == Vert.eaVert %}<t>{% endif %} { {{text.h}}mm }
-				{% for t in text.text %}
-					{
-						\fontsize{ {{t.fontsize}} }{ {{t.fontsize * 1.2}} }\selectfont
-						{{ t.content }}
-					}
+				{% for paragraph in text.paragraphs %}
+					{% for run in paragraph.runs %} {
+						\fontsize{ {{run.fontsize}} }{ {{run.fontsize * 1.2}} }\selectfont
+						{{ run.text }}
+					} {% endfor %}
+
 				{% endfor %}
 			\end{minipage}\noindent
 		\end{textblock*}

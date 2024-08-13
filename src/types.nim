@@ -1,9 +1,3 @@
-type Vert* {.pure.} = enum
-    horz
-    eaVert
-    vert
-    vert270
-
 type Object* = object of RootObj
     x*: float # x[mm]
     y*: float # y[mm]
@@ -13,6 +7,17 @@ type Object* = object of RootObj
 type Rectangle* = object of Object
     t*: float # thickness[mm]
 
-type Text* = object of Object
-    text*: seq[tuple[fontsize: float, content: string]]
-    vert*: Vert
+type
+    Run* = object
+        fontsize*: float
+        text*: string
+    Paragraph* = object
+        runs*: seq[Run]
+    Vert* {.pure.} = enum
+        horz
+        eaVert
+        vert
+        vert270
+    Text* = object of Object
+        paragraphs*: seq[Paragraph]
+        vert*: Vert

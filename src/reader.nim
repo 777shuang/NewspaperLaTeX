@@ -39,8 +39,13 @@ proc textbox*(drawing: XmlNode, rectangles: var seq[Rectangle], texts: var seq[T
             break
 
       for p in txbxContent:
+        var paragraph: Paragraph
         for r in p:
           let t = r.child("w:t")
           if t != nil:
-            text.text.add((10.0, t.innerText))
+            var run: Run
+            run.fontsize = 10.5
+            run.text = t.innerText
+            paragraph.runs.add(run)
+        text.paragraphs.add(paragraph)
       texts.add(text)
