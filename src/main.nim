@@ -11,7 +11,8 @@ proc render(rectangles: seq[Rectangle], texts: seq[Text]): string =
 let zip = openZipArchive("test.docx")
 let xmlnode = parseXml(zip.extractFile("word/document.xml"))
 zip.close()
-writeFile("document.xml", $xmlnode)
+when not defined(release):
+  writeFile("document.xml", $xmlnode)
 
 var texts: seq[Text]
 var rectangles: seq[Rectangle]
