@@ -1,15 +1,15 @@
 type Object* = object of RootObj
-    x*: float # x[mm]
-    y*: float # y[mm]
-    w*: float # width[mm]
-    h*: float # height[mm]
+    x*: float # x[pt]
+    y*: float # y[pt]
+    w*: float # width[pt]
+    h*: float # height[pt]
 
 type Rectangle* = object of Object
-    t*: float # thickness[mm]
+    t*: float # thickness[pt]
 
 type
     Run* = object
-        fontsize*: float
+        fontsize*: float # [pt]
         text*: string
     Paragraph* = object
         runs*: seq[Run]

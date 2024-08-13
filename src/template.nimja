@@ -9,7 +9,7 @@
 	\pagestyle{empty}
 
 	{% for rectangle in rectangles %}
-		\begin{textblock*}{ {{rectangle.w}}mm }( {{rectangle.x}}mm, {{rectangle.y}}mm )
+		\begin{textblock*}{ {{rectangle.w}}pt }( {{rectangle.x}}pt, {{rectangle.y}}pt )
 			\noindent\begin{tcolorbox}[
 				empty,
 				colback=white,
@@ -21,16 +21,16 @@
 				right=0pt,
 				toptitle=0pt,
 				bottomtitle=0pt,
-				height={{rectangle.h}}mm,
-				frame code={\draw[dotted,line width={{rectangle.t}}mm] (interior.north east) rectangle (interior.south west);}
+				height={{rectangle.h}}pt,
+				frame code={\draw[dotted,line width={{rectangle.t}}pt] (interior.north east) rectangle (interior.south west);}
 			]
 			\end{tcolorbox}\noindent
 		\end{textblock*}
 	{% endfor %}
 
 	{% for text in texts %}
-		\begin{textblock*}{ {{text.w}}mm }( {{text.x}}mm, {{text.y}}mm )
-			\noindent\begin{minipage} {% if text.vert == Vert.eaVert %}<t>{% endif %} { {{text.h}}mm }
+		\begin{textblock*}{ {{text.w}}pt }( {{text.x}}pt, {{text.y}}pt )
+			\noindent\begin{minipage} {% if text.vert == Vert.eaVert %}<t>{% endif %} { {{text.h}}pt }
 				{% for paragraph in text.paragraphs %}
 					{% for run in paragraph.runs %} {
 						\fontsize{ {{run.fontsize}} }{ {{run.fontsize * 1.2}} }\selectfont

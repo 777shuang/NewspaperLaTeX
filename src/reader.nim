@@ -11,13 +11,13 @@ proc textbox*(drawing: XmlNode, rectangles: var seq[Rectangle], texts: var seq[T
   if wsp != nil and spPr.child("a:prstGeom").attr("prst") == "rect":
 
     var rectangle: Rectangle
-    rectangle.x = emu2mm(anchor.child("wp:positionH").child("wp:posOffset").innerText)
-    rectangle.y = emu2mm(anchor.child("wp:positionV").child("wp:posOffset").innerText)
-    rectangle.w = emu2mm(anchor.child("wp:extent").attr("cx"))
-    rectangle.h = emu2mm(anchor.child("wp:extent").attr("cy"))
+    rectangle.x = emu2pt(anchor.child("wp:positionH").child("wp:posOffset").innerText)
+    rectangle.y = emu2pt(anchor.child("wp:positionV").child("wp:posOffset").innerText)
+    rectangle.w = emu2pt(anchor.child("wp:extent").attr("cx"))
+    rectangle.h = emu2pt(anchor.child("wp:extent").attr("cy"))
     let a_ln = spPr.child("a:ln")
     if a_ln != nil:
-      rectangle.t = emu2mm(a_ln.attr("w"))
+      rectangle.t = emu2pt(a_ln.attr("w"))
     rectangles.add(rectangle)
 
     let txbx = wsp.child("wp:txbx")
