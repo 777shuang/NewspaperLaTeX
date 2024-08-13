@@ -14,16 +14,6 @@ zip.close()
 when not defined(release):
   writeFile("document.xml", $xmlnode)
 
-var texts: seq[Text]
-var rectangles: seq[Rectangle]
-
-let body = xmlnode.child("w:body")
-for paragraph in body:
-  for (i, run) in enumerate(paragraph):
-    let drawing = run.child("w:drawing")
-    if drawing != nil:
-      textbox(drawing, rectangles, texts)
-
 let sectPr = body.child("w:sectPr")
 let pgSz = sectPr.child("w:pgSz")
 paperWidth = pt2emu(pgSz.attr("w:w"))
@@ -33,5 +23,15 @@ leftMargin = pt2emu(pgMar.attr("w:left"))
 rightMargin = pt2emu(pgMar.attr("w:right"))
 topMargin = pt2emu(pgMar.attr("w:top"))
 bottomMargin = pt2emu(pgMar.attr("w:bottom"))
+
+var texts: seq[Text]
+var rectangles: seq[Rectangle]
+
+let body = xmlnode.child("w:body")
+for paragraph in body:
+  for (i, run) in enumerate(paragraph):
+    let drawing = run.child("w:drawing")
+    if drawing != nil:
+      textbox(drawing, rectangles, texts)
 
 writeFile("test.tex", render(rectangles, texts))
