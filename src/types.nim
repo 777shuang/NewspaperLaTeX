@@ -10,6 +10,9 @@ type Object* = object of RootObj
     w*: float # width[mm]
     h*: float # height[mm]
 
-type TextBox* = object of Object
-    text*: string
+type Rectangle* = object of Object
+    t*: float # thickness[mm]
+
+type Text* = object of Object
+    text*: seq[tuple[fontsize: float, content: string]]
     vert*: Vert

@@ -3,15 +3,6 @@
 \usepackage{lltjext}
 \usepackage{tcolorbox}
 \tcbuselibrary{skins}
-\newtcolorbox{lineframe}[2]{
-	colback=white,
-	coltext=black,
-	enhanced,
-	frame code={
-		\draw[#1,line width=#2] (interior.north east) rectangle (interior.south west);
-	}
-}
-
 \usepackage[absolute]{textpos}
 \setlength{\TPHorizModule}{1mm}
 \setlength{\TPVertModule}{1mm}
@@ -20,10 +11,33 @@
 \begin{document}
 	\pagestyle{empty}
 
-	{% for textbox in textboxes %}
-		\begin{textblock}{ {{textbox.w}} }( {{textbox.x}}, {{textbox.y}} )
-			\begin{minipage} {% if textbox.vert == Vert.eaVert %}<t>{% endif %} { {{textbox.h}}mm }
-				{{textbox.text}}
+	{% for rectangle in rectangles %}
+		\begin{textblock}{ {{rectangle.w}} }( {{rectangle.x}}, {{rectangle.y}} )
+			\begin{tcolorbox}[
+				empty,
+				colback=white,
+				coltext=black,
+				boxsep=0pt,
+				top=0pt,
+				bottom=0pt,
+				left=0pt,
+				right=0pt,
+				height={{rectangle.h}}mm,
+				frame code={\draw[dotted,line width={{rectangle.t}}mm] (interior.north east) rectangle (interior.south west);}
+			]
+			\end{tcolorbox}
+		\end{textblock}
+	{% endfor %}
+
+	{% for text in texts %}
+		\begin{textblock}{ {{text.w}} }( {{text.x}}, {{text.y}} )
+			\begin{minipage} {% if text.vert == Vert.eaVert %}<t>{% endif %} { {{text.h}}mm }
+				{% for t in text.text %}
+					{
+						\fontsize{ {{t.fontsize}} }{ {{t.fontsize * 1.2}} }\selectfont
+						{{ t.content }}
+					}
+				{% endfor %}
 			\end{minipage}
 		\end{textblock}
 	{% endfor %}
