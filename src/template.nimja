@@ -12,8 +12,8 @@
 	\pagestyle{empty}
 
 	{% for rectangle in rectangles %}
-		\begin{textblock}{ {{rectangle.w}} }( {{rectangle.x}}, {{rectangle.y}} )
-			\begin{tcolorbox}[
+		\begin{textblock*}{ {{rectangle.w}}mm }( {{rectangle.x}}mm, {{rectangle.y}}mm )
+			\noindent\begin{tcolorbox}[
 				empty,
 				colback=white,
 				coltext=black,
@@ -22,23 +22,25 @@
 				bottom=0pt,
 				left=0pt,
 				right=0pt,
+				toptitle=0pt,
+				bottomtitle=0pt,
 				height={{rectangle.h}}mm,
 				frame code={\draw[dotted,line width={{rectangle.t}}mm] (interior.north east) rectangle (interior.south west);}
 			]
-			\end{tcolorbox}
-		\end{textblock}
+			\end{tcolorbox}\noindent
+		\end{textblock*}
 	{% endfor %}
 
 	{% for text in texts %}
-		\begin{textblock}{ {{text.w}} }( {{text.x}}, {{text.y}} )
-			\begin{minipage} {% if text.vert == Vert.eaVert %}<t>{% endif %} { {{text.h}}mm }
+		\begin{textblock*}{ {{text.w}}mm }( {{text.x}}mm, {{text.y}}mm )
+			\noindent\begin{minipage} {% if text.vert == Vert.eaVert %}<t>{% endif %} { {{text.h}}mm }
 				{% for t in text.text %}
 					{
 						\fontsize{ {{t.fontsize}} }{ {{t.fontsize * 1.2}} }\selectfont
 						{{ t.content }}
 					}
 				{% endfor %}
-			\end{minipage}
-		\end{textblock}
+			\end{minipage}\noindent
+		\end{textblock*}
 	{% endfor %}
 \end{document}
