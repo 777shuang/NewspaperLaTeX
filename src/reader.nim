@@ -7,8 +7,6 @@ import types, global
 # 第1引数に<wp:anchor>要素のXmlNodeを渡して、長方形の座標と幅、大きさを算出する。
 # 枠線の太さは算出しない。
 proc getRectangle(anchor: XmlNode): Rectangle {.inline.} =
-  var result: Rectangle
-
   # 幅・高さの算出
   let extent = anchor.child("wp:extent")
   result.w = extent.attr("cx").parseInt
