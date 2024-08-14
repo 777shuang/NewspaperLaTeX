@@ -1,0 +1,8 @@
+{% if text.anchor == Anchor.ctr %}
+    \centering
+{% elif text.anchor == Anchor.t %}
+    \hfill
+{% endif %}
+\noindent\begin{minipage}<t>{ {{emu2pt(text.h)}} }
+    {% importnimja "template/text/text.nimja" %}
+\end{minipage}

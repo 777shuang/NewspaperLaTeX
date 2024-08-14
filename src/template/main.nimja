@@ -1,0 +1,24 @@
+\documentclass{jlreq}
+
+\usepackage{lltjext}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins}
+\usepackage[absolute]{textpos}
+
+\begin{document}
+    \pagestyle{empty}
+
+    {% for rectangle in rectangles %}
+        {% importnimja "template/rectangle.nimja" %}
+    {% endfor %}
+
+    {% for text in texts %}
+        \begin{textblock*}{ {{emu2pt(text.w)}} }( {{emu2pt(text.x)}}, {{emu2pt(text.y)}} )
+            {% if text.vert == Vert.eaVert %}
+                {% importnimja "template/text/eaVert.nimja" %}
+            {% elif text.vert == Vert.horz %}
+                {% importnimja "template/text/horz.nimja" %}
+            {% endif %}
+        \end{textblock*}
+    {% endfor %}
+\end{document}

@@ -6,7 +6,7 @@ import nimja/parser
 import types, reader, global, utils
 
 proc render(rectangles: seq[Rectangle], texts: seq[Text]): string =
-  compileTemplateFile(getScriptDir() / "template.nimja")
+  compileTemplateFile(getScriptDir() / "template" / "main.nimja")
 
 let zip = openZipArchive("test.docx")
 let xmlnode = parseXml(zip.extractFile("word/document.xml"))
@@ -17,9 +17,11 @@ when not defined(release):
 let body = xmlnode.child("w:body")
 let sectPr = body.child("w:sectPr")
 let pgSz = sectPr.child("w:pgSz")
+# 紙面サイズの算出
 paperWidth = pt2emu(pgSz.attr("w:w"))
 paperHeight = pt2emu(pgSz.attr("w:h"))
 let pgMar = sectPr.child("w:pgMar")
+# 余白の算出
 leftMargin = pt2emu(pgMar.attr("w:left"))
 rightMargin = pt2emu(pgMar.attr("w:right"))
 topMargin = pt2emu(pgMar.attr("w:top"))

@@ -1,0 +1,3 @@
+\noindent\parbox[{% if text.anchor == Anchor.ctr %}c{% elif text.anchor == Anchor.b %}b{% endif %}]
+[ {{emu2pt(text.h)}} ]{ {{emu2pt(text.w)}} }
+{ {% importnimja "template/text/text.nimja" %} }

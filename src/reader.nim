@@ -117,18 +117,20 @@ proc textbox*(drawing: XmlNode, rectangles: var seq[Rectangle], texts: var seq[T
         let bodyPr_lIns = bodyPr.attr("lIns")
         let lIns = if bodyPr_lIns != "": bodyPr_lIns.parseInt else: 91440
         text.x += lIns
+        text.w -= lIns
 
         let bodyPr_tIns = bodyPr.attr("tIns")
         let tIns = if bodyPr_tIns != "": bodyPr_tIns.parseInt else: 91440
         text.y += tIns
+        text.h -= tIns
 
         let bodyPr_rIns = bodyPr.attr("rIns")
         let rIns = if bodyPr_rIns != "": bodyPr_rIns.parseInt else: 91440
-        text.w -= lIns + rIns
+        text.w -= rIns
 
         let bodyPr_bIns = bodyPr.attr("bIns")
         let bIns = if bodyPr_bIns != "": bodyPr_bIns.parseInt else: 91440
-        text.h -= tIns + bIns
+        text.h -= bIns
 
         let bodyPr_vert = bodyPr.attr("vert")
         if bodyPr_vert != "":
@@ -147,4 +149,11 @@ proc textbox*(drawing: XmlNode, rectangles: var seq[Rectangle], texts: var seq[T
               run.text = t.innerText
               paragraph.runs.add(run)
           text.paragraphs.add(paragraph)
+
+        text.anchor = case bodyPr.attr("anchor")
+          of Anchor.b.symbolName: Anchor.b
+          of Anchor.ctr.symbolName: Anchor.ctr
+          of Anchor.t.symbolName: Anchor.t
+          else: Anchor.t
+
         texts.add(text)

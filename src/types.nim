@@ -18,6 +18,11 @@ type
         eaVert
         vert
         vert270
+    Anchor* {.pure.} = enum
+        b # 下合わせ
+        ctr # 中央合わせ
+        t # 上合わせ
     Text* = object of Object
         paragraphs*: seq[Paragraph]
         vert*: Vert
+        anchor*: Anchor
