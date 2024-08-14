@@ -88,10 +88,6 @@ proc getRectangle(anchor: XmlNode): Rectangle {.inline.} =
         of "center": result.y = topMargin + (paperHeight - topMargin - bottomMargin) div 2 - result.h div 2
         of "bottom": result.y = paperHeight - result.h
 
-  #let a_ln = spPr.child("a:ln")
-  #if a_ln != nil:
-  #  result.t = a_ln.attr("w").parseInt
-
   return result
 
 # テキストボックスを長方形と文字列に分けて処理する
