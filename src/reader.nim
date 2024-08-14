@@ -99,6 +99,12 @@ proc textbox*(drawing: XmlNode, rectangles: var seq[Rectangle], texts: var seq[T
       let a_ln = spPr.child("a:ln")
       if a_ln != nil:
         rectangle.t = a_ln.attr("w").parseInt
+        let prstDash = a_ln.child("a:prstDash")
+        if prstDash != nil:
+          rectangle.frame = case prstDash.attr("val")
+            of "sysDot": Frame.dotted
+            of "sysDash": Frame.dashed
+            else: Frame.solid
         rectangles.add(rectangle) # 枠線に関する設定がなければLaTeXソースには出力しない
 
       let txbx = wsp.child("wp:txbx")

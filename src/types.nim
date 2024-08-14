@@ -4,8 +4,14 @@ type Object* = object of RootObj
     w*: int # width[EMU]
     h*: int # height[EMU]
 
-type Rectangle* = object of Object
-    t*: int # thickness[EMU]
+type
+    Frame* {.pure.} = enum
+        solid
+        dashed
+        dotted
+    Rectangle* = object of Object
+        t*: int # thickness[EMU]
+        frame*: Frame
 
 type
     Run* = object
