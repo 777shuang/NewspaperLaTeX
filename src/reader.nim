@@ -111,7 +111,25 @@ proc textbox*(drawing: XmlNode, rectangles: var seq[Rectangle], texts: var seq[T
         text.w = rectangle.w
         text.h = rectangle.h
         text.vert = Vert.horz
+
         let bodyPr = wsp.child("wp:bodyPr")
+
+        let bodyPr_lIns = bodyPr.attr("lIns")
+        let lIns = if bodyPr_lIns != "": bodyPr_lIns.parseInt else: 91440
+        text.x += lIns
+
+        let bodyPr_tIns = bodyPr.attr("tIns")
+        let tIns = if bodyPr_tIns != "": bodyPr_tIns.parseInt else: 91440
+        text.y += tIns
+
+        let bodyPr_rIns = bodyPr.attr("rIns")
+        let rIns = if bodyPr_rIns != "": bodyPr_rIns.parseInt else: 91440
+        text.w -= lIns + rIns
+
+        let bodyPr_bIns = bodyPr.attr("bIns")
+        let bIns = if bodyPr_bIns != "": bodyPr_bIns.parseInt else: 91440
+        text.h -= tIns + bIns
+
         let bodyPr_vert = bodyPr.attr("vert")
         if bodyPr_vert != "":
           for item in Vert.toSeq:
