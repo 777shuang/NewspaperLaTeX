@@ -64,7 +64,7 @@ proc getRectangle(anchor: XmlNode): Rectangle {.inline.} =
     let wp_align = positionV.child("wp:align")
     if wp_align != nil:
       let alignV = wp_align.innerText
-      case "page"
+      case relativeFromV
       of "page":
         case alignV
         of "top": result.y = 0
