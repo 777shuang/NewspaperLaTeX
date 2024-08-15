@@ -105,7 +105,9 @@ proc textbox*(drawing: XmlNode, rectangles: var seq[Rectangle], texts: var seq[T
             of "sysDot": Frame.dotted
             of "sysDash": Frame.dashed
             else: Frame.solid
-        rectangles.add(rectangle) # 枠線に関する設定がなければLaTeXソースには出力しない
+        let noFill = a_ln.child("a:noFill")
+        if noFill == nil: # 枠線を表示しない設定がないならば
+          rectangles.add(rectangle) # 枠線に関する設定がなければLaTeXソースには出力しない
 
       let txbx = wsp.child("wp:txbx")
       if txbx != nil:
@@ -151,8 +153,17 @@ proc textbox*(drawing: XmlNode, rectangles: var seq[Rectangle], texts: var seq[T
             let t = r.child("w:t")
             if t != nil:
               var run: Run
-              run.fontsize = 10.5
+              run.fontsize = 10.5 # 一時的にデフォルトのフォントサイズは10.5ptとする
               run.text = t.innerText
+
+              # フォントが設定されているならば取得する
+              let rPr = r.child("w:rPr")
+              if rPr != nil:
+                let sz = rPr.child("w:sz")
+                if sz != nil:
+                  let fontsize = sz.attr("w:val")
+                  if fontsize != "": run.fontsize = fontsize.parseFloat / 2
+
               paragraph.runs.add(run)
           text.paragraphs.add(paragraph)
 
