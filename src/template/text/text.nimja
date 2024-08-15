@@ -1,7 +1,8 @@
 {% for paragraph in text.paragraphs %}
+    {% if paragraph.jc == Jc.center %} \centering {% elif paragraph.jc == Jc.right %} \hfill {% endif %}
     {% for run in paragraph.runs %}{
         \fontsize{ {{run.fontsize}}pt }{ {{run.fontsize * 1.2}}pt }\selectfont
         {{ run.text }}
     }{% endfor %}
-
+    \par
 {% endfor %}

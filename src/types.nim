@@ -14,11 +14,16 @@ type
         frame*: Frame
 
 type
+    Jc* {.pure.} = enum # 文字揃え
+        left # 左揃え
+        center # 中央揃え
+        right # 右揃え
     Run* = object
         fontsize*: float # [pt]
         text*: string
     Paragraph* = object
         runs*: seq[Run]
+        jc*: Jc
     Vert* {.pure.} = enum
         horz
         eaVert

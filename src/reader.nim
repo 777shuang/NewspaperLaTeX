@@ -149,6 +149,17 @@ proc textbox*(drawing: XmlNode, rectangles: var seq[Rectangle], texts: var seq[T
 
         for p in txbxContent:
           var paragraph: Paragraph
+
+          let pPr = p.child("w:pPr")
+          if pPr != nil:
+            let jc = pPr.child("w:jc")
+            if jc != nil:
+              paragraph.jc = case jc.attr("w:val")
+                of "start": Jc.left
+                of "center": Jc.center
+                of "end": Jc.right
+                else: Jc.left
+
           for r in p:
             let t = r.child("w:t")
             if t != nil:
