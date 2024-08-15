@@ -37,3 +37,4 @@ for paragraph in body:
       textbox(drawing, rectangles, texts)
 
 writeFile("test.tex", render(rectangles, texts))
+discard execShellCmd("latexindent -w test.tex")
