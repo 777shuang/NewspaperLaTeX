@@ -1,4 +1,4 @@
-\documentclass{jlreq}
+\documentclass[paper={ {{emu2pt(paperWidth)}}, {{emu2pt(paperHeight)}} }]{jlreq}
 
 \usepackage{lltjext}
 \usepackage{tcolorbox}
