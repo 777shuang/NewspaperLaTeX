@@ -49,7 +49,7 @@ proc getRectangle(anchor: XmlNode): Rectangle {.inline.} =
         case alignH
         of "left": result.x = leftMargin
         of "center": result.x = leftMargin + (paperWidth - leftMargin - rightMargin) div 2 - result.w div 2
-        of "right": result.x = paperWidth - result.w
+        of "right": result.x = paperWidth - rightMargin - result.w
 
   # Y座標の算出
   let positionV = anchor.child("wp:positionV")
