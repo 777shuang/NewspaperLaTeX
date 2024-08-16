@@ -5,14 +5,12 @@ import zippy/ziparchives
 import nimja/parser
 import types, reader, global, utils
 
-proc render(rectangles: seq[Rectangle], texts: seq[Text]): string =
-  compileTemplateFile(getScriptDir() / "template" / "main.nimja")
-
-let zip = openZipArchive("test.docx")
-let xmlnode = parseXml(zip.extractFile("word/document.xml"))
-zip.close()
+zipArchiveReader = openZipArchive("test.docx")
+let xmlnode = parseXml(zipArchiveReader.extractFile("word/document.xml"))
+document_rels = parseXml(zipArchiveReader.extractFile("word/_rels/document.xml.rels"))
 when not defined(release):
   writeFile("document.xml", $xmlnode)
+  writeFile("rels.xml", $document_rels)
 
 let body = xmlnode.child("w:body")
 let sectPr = body.child("w:sectPr")
@@ -29,12 +27,15 @@ bottomMargin = pt2emu(pgMar.attr("w:bottom"))
 
 var texts: seq[Text]
 var rectangles: seq[Rectangle]
+var graphics: seq[Graphic]
 
 for paragraph in body:
   for (i, run) in enumerate(paragraph):
     let drawing = run.child("w:drawing")
     if drawing != nil:
       textbox(drawing, rectangles, texts)
+      graphic(drawing, graphics)
 
-writeFile("test.tex", render(rectangles, texts))
+writeFile("test.tex", tmplf(getScriptDir() / "template" / "main.nimja"))
 discard execShellCmd("latexindent -w -s -l test.tex")
+zipArchiveReader.close()

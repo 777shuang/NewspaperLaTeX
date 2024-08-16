@@ -1,0 +1,4 @@
+\includegraphics[
+    width={{emu2pt(graphic.w)}},
+    height={{emu2pt(graphic.h)}}
+]{ {{graphic.path}} }

@@ -1,10 +1,8 @@
-\begin{textblock*}{ {{emu2pt(rectangle.w)}} }( {{emu2pt(rectangle.x)}}, {{emu2pt(rectangle.y)}} )
-    \noindent\begin{tcolorbox}[
-        empty,
-        boxsep=0pt, top=0pt, bottom=0pt, left=0pt,	right=0pt, toptitle=0pt, bottomtitle=0pt,
-        colback=white, coltext=black,
-        height={{emu2pt(rectangle.h)}},
-        frame code={\draw[dotted,line width={{emu2pt(rectangle.t)}}] (interior.north east) rectangle (interior.south west);}
-    ]
-    \end{tcolorbox}\noindent
-\end{textblock*}
+\noindent\begin{tcolorbox}[
+    empty,
+    boxsep=0pt, top=0pt, bottom=0pt, left=0pt,	right=0pt, toptitle=0pt, bottomtitle=0pt,
+    colback=white, coltext=black,
+    height={{emu2pt(rectangle.h)}},
+    frame code={\draw[dotted,line width={{emu2pt(rectangle.t)}}] (interior.north east) rectangle (interior.south west);}
+]
+\end{tcolorbox}\noindent

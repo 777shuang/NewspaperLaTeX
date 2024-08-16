@@ -1,7 +1,9 @@
+import std/os
 import std/xmltree
 import std/strutils
 import std/sequtils
 import std/enumutils
+import zippy/ziparchives
 import types, global
 
 # 第1引数に<wp:anchor>要素のXmlNodeを渡して、長方形の座標と幅、大きさを算出する。
@@ -185,3 +187,48 @@ proc textbox*(drawing: XmlNode, rectangles: var seq[Rectangle], texts: var seq[T
           else: Anchor.t
 
         texts.add(text)
+
+# 画像を処理する
+proc graphic*(w_drawing: XmlNode, graphics: var seq[Graphic]) {.inline.} =
+  let anchor = w_drawing.child("wp:anchor")
+  let rectangle = getRectangle(anchor)
+  let pic = anchor.child("a:graphic").child("a:graphicData").child("pic:pic")
+  if pic != nil:
+    var graphic: Graphic
+    graphic.x = rectangle.x
+    graphic.y = rectangle.y
+    graphic.w = rectangle.w
+    graphic.h = rectangle.h
+
+    let spPr = pic.child("pic:spPr")
+    if spPr != nil:
+      let xfrm = spPr.child("a:xfrm")
+      if xfrm != nil:
+        let ext = xfrm.child("a:ext")
+        if ext != nil:
+          let x = ext.attr("cx")
+          if x != "": graphic.w = x.parseInt
+          let y = ext.attr("cy")
+          if y != "": graphic.h = y.parseInt
+
+        let off = xfrm.child("a:xfrm")
+        if off != nil:
+          let x = off.attr("x")
+          if x != "": graphic.x += x.parseInt
+          let y = off.attr("y")
+          if y != "": graphic.y += y.parseInt
+
+    let blipFill = pic.child("pic:blipFill")
+    if blipFill != nil:
+      let blip = blipFill.child("a:blip")
+      let embed = blip.attr("r:embed")
+      if embed != "":
+        for relationship in document_rels:
+          if embed == relationship.attr("Id"):
+            let target = relationship.attr("Target")
+            let (_, _, ext) = target.splitFile
+            let path = embed & ext
+            if not fileExists(path):
+              writefile(path, zipArchiveReader.extractFile("word/" & target))
+            graphic.path = path
+            graphics.add(graphic)

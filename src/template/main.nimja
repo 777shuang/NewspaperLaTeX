@@ -9,7 +9,9 @@
     \pagestyle{empty}
 
     {% for rectangle in rectangles %}
-        {% importnimja "template/rectangle.nimja" %}
+        \begin{textblock*}{ {{emu2pt(rectangle.w)}} }( {{emu2pt(rectangle.x)}}, {{emu2pt(rectangle.y)}} )
+            {% importnimja "template/rectangle.nimja" %}
+        \end{textblock*}
     {% endfor %}
 
     {% for text in texts %}
@@ -19,6 +21,12 @@
             {% elif text.vert == Vert.horz %}
                 {% importnimja "template/text/horz.nimja" %}
             {% endif %}
+        \end{textblock*}
+    {% endfor %}
+
+    {% for graphic in graphics %}
+        \begin{textblock*}{ {{emu2pt(graphic.w)}} }( {{emu2pt(graphic.x)}}, {{emu2pt(graphic.y)}} )
+            {% importnimja "template/graphic.nimja" %}
         \end{textblock*}
     {% endfor %}
 \end{document}

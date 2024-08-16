@@ -4,6 +4,9 @@ type Object* = object of RootObj
     w*: int # width[EMU]
     h*: int # height[EMU]
 
+type Graphic* = object of Object
+    path*: string # 画像ファイル名
+
 type
     Frame* {.pure.} = enum
         solid
