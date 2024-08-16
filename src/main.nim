@@ -37,5 +37,6 @@ for paragraph in body:
       graphic(drawing, graphics)
 
 writeFile("test.tex", tmplf(getScriptDir() / "template" / "main.nimja"))
-discard execShellCmd("latexindent -w -s -l test.tex")
+when not defined(release)
+  discard execShellCmd("latexindent -w -s -l test.tex")
 zipArchiveReader.close()
