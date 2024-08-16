@@ -320,4 +320,4 @@ htmldocs/
 
 /main*
 test.*
-document.xml
+*.xml
