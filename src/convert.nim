@@ -37,7 +37,9 @@ proc convert_wrapper*(path: string) =
         textbox(drawing, rectangles, texts)
         graphic(drawing, graphics)
 
-  writeFile("test.tex", tmplf(getScriptDir() / "template" / "main.nimja"))
+  let (dir, name, ext) = splitFile(path)
+  let tex = dir / name & ".tex"
+  writeFile(tex, tmplf(getScriptDir() / "template" / "main.nimja"))
   when not defined(release):
-    discard execShellCmd("latexindent -w -s -l test.tex")
+    discard execShellCmd("latexindent -w -s -l " & tex)
   zipArchiveReader.close()
