@@ -24,6 +24,6 @@ task countlines, "プログラムの総行数を算出":
 # Dependencies
 
 requires "nim >= 2.0.0"
-requires "tinyfiledialogs"
+requires "tinydialogs"
 requires "zippy"
 requires "nimja == 0.8.7"
